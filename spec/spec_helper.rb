@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "bundler/setup"
 require "has_states"
 
 RSpec.configure do |config|
