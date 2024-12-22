@@ -5,13 +5,13 @@ module HasStates
     extend ActiveSupport::Concern
 
     included do
-      has_many :states, class_name: "HasStates::State",
+      has_many :states, class_name: 'HasStates::State',
                         as: :stateable,
                         dependent: :destroy
     end
 
     # Instance methods for managing states
-    def add_state(type, status: "pending", metadata: {})
+    def add_state(type, status: 'pending', metadata: {})
       states.create!(
         state_type: type,
         status: status,
@@ -28,7 +28,7 @@ module HasStates
     end
 
     def state_completed?(type)
-      states_of_type(type).where(status: "completed").exists?
+      states_of_type(type).where(status: 'completed').exists?
     end
   end
 end

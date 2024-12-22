@@ -2,7 +2,7 @@
 
 module HasStates
   class State < ActiveRecord::Base
-    self.table_name = "has_states_states"
+    self.table_name = 'has_states_states'
 
     belongs_to :stateable, polymorphic: true
 
@@ -22,13 +22,13 @@ module HasStates
     def status_is_configured
       return if HasStates.configuration.statuses.include?(status)
 
-      errors.add(:status, "is not configured")
+      errors.add(:status, 'is not configured')
     end
 
     def state_type_is_configured
       return if HasStates.configuration.state_types.include?(state_type)
 
-      errors.add(:state_type, "is not configured")
+      errors.add(:state_type, 'is not configured')
     end
 
     # Define methods for each status on the instance.

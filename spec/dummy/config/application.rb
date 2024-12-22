@@ -1,18 +1,20 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails"
+require_relative 'boot'
+
+require 'rails'
 
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_record/railtie"
-require "action_controller/railtie"
+require 'active_model/railtie'
+require 'active_record/railtie'
+require 'action_controller/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 Bundler.require(*Rails.groups)
-require "has_states"
+require 'has_states'
 
 module Dummy
   class Application < Rails::Application

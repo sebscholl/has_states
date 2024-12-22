@@ -15,8 +15,8 @@ module HasStates
     private
 
     def create_migration
-      timestamp = Time.current.strftime("%Y%m%d%H%M%S")
-      template_path = File.expand_path("../templates/migration.rb", __dir__)
+      timestamp = Time.current.strftime('%Y%m%d%H%M%S')
+      template_path = File.expand_path('../templates/migration.rb', __dir__)
       target_path = "db/migrate/#{timestamp}_create_has_states_tables.rb"
 
       FileUtils.cp(template_path, target_path)

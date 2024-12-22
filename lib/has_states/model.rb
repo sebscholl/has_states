@@ -6,12 +6,12 @@ module HasStates
 
     included do
       has_many :states,
-               class_name: "HasStates::State::Base",
+               class_name: 'HasStates::State::Base',
                as: :stateable,
                dependent: :destroy
 
       has_many :verifications,
-               class_name: "HasStates::State::Verification",
+               class_name: 'HasStates::State::Verification',
                as: :stateable,
                dependent: :destroy
     end

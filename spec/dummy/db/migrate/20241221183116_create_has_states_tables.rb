@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateHasStatesTables < ActiveRecord::Migration[7.1]
   def change
     create_table :has_states_states do |t|
@@ -11,7 +13,7 @@ class CreateHasStatesTables < ActiveRecord::Migration[7.1]
       t.datetime :completed_at
       t.timestamps
 
-      t.index [ :stateable_type, :stateable_id ]
+      t.index %i[stateable_type stateable_id]
     end
   end
 end

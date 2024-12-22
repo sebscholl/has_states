@@ -2,10 +2,10 @@
 
 # spec/factories/has_states.rb
 FactoryBot.define do
-  factory :state, class: "HasStates::State" do
+  factory :state, class: 'HasStates::State' do
     association :stateable, factory: :user
-    state_type { "kyc" }
-    status { "pending" }
+    state_type { 'kyc' }
+    status { 'pending' }
     metadata { {} }
   end
 
