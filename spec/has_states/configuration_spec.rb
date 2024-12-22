@@ -6,6 +6,14 @@ require 'rails_helper'
 RSpec.describe HasStates::Configuration do
   let(:configuration) { described_class.instance }
 
+  before do
+    # Reset configuration before each test
+    configuration.clear_callbacks!
+    configuration.models = []
+    configuration.state_types = []
+    configuration.statuses = []
+  end
+
   describe 'defaults' do
     it 'initializes with empty arrays' do
       expect(configuration.models).to be_empty
@@ -16,7 +24,7 @@ RSpec.describe HasStates::Configuration do
 
   describe '#statuses=' do
     it 'sets statuses and reloads configuration' do
-      expect(HasStates::State).to receive(:generate_scopes!)
+      expect(HasStates::State).to receive(:generate_predicates!)
 
       HasStates.configure do |config|
         config.statuses = %w[pending completed]
@@ -51,10 +59,10 @@ RSpec.describe HasStates::Configuration do
       HasStates.configure do |config|
         config.state_types = [state_type]
         config.statuses = %w[pending completed failed]
-        # Add a callbacks
-        configuration.on(:kyc, to: 'failed') { |_s| :kyc_failed }
-        configuration.on(:kyc, to: 'pending') { |_s| :kyc_pending }
-        configuration.on(:kyc, to: 'completed') { |_s| :kyc_completed }
+        # Add callbacks with explicit IDs
+        configuration.on(:kyc, id: :failed_callback, to: 'failed') { |_s| :kyc_failed }
+        configuration.on(:kyc, id: :pending_callback, to: 'pending') { |_s| :kyc_pending }
+        configuration.on(:kyc, id: :complete_callback, to: 'completed') { |_s| :kyc_completed }
       end
     end
 
@@ -68,13 +76,42 @@ RSpec.describe HasStates::Configuration do
 
         expect(matching.length).to eq(1)
       end
+
+      it 'registers callbacks with auto-generated ids' do
+        callback = configuration.on(:kyc) { |_s| :some_action }
+        expect(configuration.callbacks.keys.last).to match(/\Acallback_\d+\z/)
+      end
+
+      it 'registers callbacks with custom ids' do
+        callback = configuration.on(:kyc, id: :my_custom_callback) { |_s| :some_action }
+        expect(configuration.callbacks.keys).to include(:my_custom_callback)
+      end
+
+      it 'converts string ids to symbols' do
+        callback = configuration.on(:kyc, id: 'my_string_id') { |_s| :some_action }
+        expect(configuration.callbacks.keys).to include(:my_string_id)
+      end
     end
 
     describe '#off' do
-      it 'removes a specific callback' do
-        callback = configuration.callbacks.first
+      it 'removes a callback by id' do
+        configuration.on(:kyc, id: :removable) { |_s| :some_action }
+        expect { configuration.off(:removable) }
+          .to change { configuration.callbacks.size }.by(-1)
+      end
 
-        expect { configuration.off(callback) }.to change { configuration.callbacks.size }.by(-1)
+      it 'removes a callback by callback object' do
+        callback = configuration.on(:kyc) { |_s| :some_action }
+        expect { configuration.off(callback) }
+          .to change { configuration.callbacks.size }.by(-1)
+      end
+
+      it 'properly removes callback when given a callback object' do
+        callback = configuration.on(:kyc, id: :test) { |_s| :some_action }
+        expect(configuration.callbacks.values).to include(callback)
+        
+        configuration.off(callback)
+        expect(configuration.callbacks.values).not_to include(callback)
       end
     end
 
@@ -85,11 +122,51 @@ RSpec.describe HasStates::Configuration do
     end
 
     describe '#matching_callbacks' do
-      it 'finds callbacks matching state type and conditions' do
+      it 'finds callbacks matching state type and conditions regardless of id' do
+        configuration.clear_callbacks!
+        configuration.on(:kyc, id: :complete_callback, to: 'completed') { |_s| :kyc_completed }
+        
         matching = configuration.matching_callbacks(state_completed)
-
         expect(matching.size).to eq(1)
         expect(matching.first.call(state_completed)).to eq(:kyc_completed)
+      end
+    end
+  end
+
+  describe '#models=' do
+    it 'includes Stateable in configured models' do
+      HasStates.configure do |config|
+        config.models = ['User']
+      end
+
+      expect(User.included_modules).to include(HasStates::Stateable)
+    end
+
+    it 'handles symbol model names' do
+      HasStates.configure do |config|
+        config.models = [:user]
+      end
+
+      expect(User.included_modules).to include(HasStates::Stateable)
+    end
+
+    it 'raises error for non-existent models' do
+      expect {
+        HasStates.configure do |config|
+          config.models = ['NonExistentModel']
+        end
+      }.to raise_error(/Could not find model/)
+    end
+
+    it 'does not double-include Stateable' do
+      HasStates.configure do |config|
+        config.models = ['User']
+      end
+
+      expect(User).not_to receive(:include)
+      
+      HasStates.configure do |config|
+        config.models = ['User']
       end
     end
   end

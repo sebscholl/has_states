@@ -1,44 +1,147 @@
 # HasStates
 
-TODO: Delete this and the text below, and describe your gem
+HasStates is a flexible state management gem for Ruby on Rails that allows you to add multiple state machines to your models. It provides a simple way to track state transitions, add metadata, and execute callbacks.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/has_states`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Features
+
+- Multiple state machines per model
+- JSON metadata storage for each state
+- Configurable callbacks with conditions
+- Limited execution callbacks
+- Automatic scope generation
+- Simple state transition tracking
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
 
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+gem 'has_states'
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
-
+And then execute:
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+$ bundle install
 ```
 
-## Usage
+Or install it yourself as:
+```bash
+$ gem install has_states
+```
 
-TODO: Write usage instructions here
+## Setup
 
-## Development
+Run the installation generator:
+```bash
+$ rails has_states:install
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+This will create a migration for the states table. Run the migration:
+```bash
+$ rails db:migrate
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Basic Usage
+
+First, configure your states in an initializer:
+
+```ruby
+# config/initializers/has_states.rb
+HasStates.configure do |config|
+  config.models = ['User', 'Company']
+  config.state_types = ['kyc', 'onboarding']
+  config.statuses = ['pending', 'completed', 'failed']
+end
+```
+
+Now you can use states in your models:
+
+```ruby
+class User < ApplicationRecord
+  # HasStates is automatically included based on configuration. 
+  # If you want to include it manually, use:
+  # include HasStates::Stateable
+end
+
+user = User.create!(name: 'John')
+
+# Add a new state
+state = user.add_state('kyc', status: 'pending', metadata: { 
+  documents: ['passport', 'utility_bill']
+})
+
+# Check current state
+user.current_state('kyc') # => state object
+state.pending? # => true
+
+# Update state
+state.update!(status: 'completed')
+```
+
+## Callbacks
+
+You can register callbacks that execute when states change:
+
+```ruby
+HasStates.configure do |config|
+  # Basic callback
+  config.on(:kyc, to: 'completed') do |state|
+    UserMailer.kyc_completed(state.stateable).deliver_later
+  end
+
+  # Callback with custom ID
+  config.on(:kyc, id: :notify_admin, to: 'failed') do |state|
+    AdminNotifier.kyc_failed(state)
+  end
+
+  # Limited execution callback (runs only twice)
+  config.on(:onboarding, to: 'completed', times: 2) do |state|
+    WelcomeMailer.send_welcome(state.stateable)
+  end
+end
+```
+
+Remove callbacks:
+```ruby
+# Remove by ID
+HasStates.configuration.off(:notify_admin)
+
+# Remove by callback object
+callback = HasStates.configuration.on(:kyc) { |state| puts "Called" }
+HasStates.configuration.off(callback)
+```
+
+## Metadata
+
+Each state can store arbitrary metadata as JSON:
+
+```ruby
+state = user.add_state('kyc', metadata: {
+  documents: {
+    passport: { status: 'verified', verified_at: Time.current },
+    utility_bill: { status: 'pending' }
+  },
+  notes: ['Document expired', 'Needs review'],
+  reviewer_id: 123
+})
+
+state.metadata['documents']['passport']['status'] # => "verified"
+```
+
+## Scopes
+
+HasStates automatically generates scopes for your state types:
+
+```ruby
+HasStates::State.kyc # => Returns all KYC states
+HasStates::State.onboarding # => Returns all onboarding states
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/has_states. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/has_states/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/has_states.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the HasStates project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/has_states/blob/master/CODE_OF_CONDUCT.md).
 

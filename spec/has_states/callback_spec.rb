@@ -56,4 +56,37 @@ RSpec.describe HasStates::Callback do
       expect(callback.call(state)).to eq(:called)
     end
   end
+
+  describe 'equality' do
+    let(:block1) { ->(_s) { :called } }
+    let(:block2) { ->(_s) { :called } }
+    
+    it 'considers callbacks equal if they have the same state_type, conditions, and block' do
+      callback1 = described_class.new('kyc', { to: 'completed' }, block1)
+      callback2 = described_class.new('kyc', { to: 'completed' }, block1)
+      
+      expect(callback1).to eq(callback2)
+    end
+
+    it 'considers callbacks different if they have different blocks' do
+      callback1 = described_class.new('kyc', { to: 'completed' }, block1)
+      callback2 = described_class.new('kyc', { to: 'completed' }, block2)
+      
+      expect(callback1).not_to eq(callback2)
+    end
+
+    it 'considers callbacks different if they have different conditions' do
+      callback1 = described_class.new('kyc', { to: 'completed' }, block1)
+      callback2 = described_class.new('kyc', { to: 'pending' }, block1)
+      
+      expect(callback1).not_to eq(callback2)
+    end
+
+    it 'considers callbacks different if they have different state types' do
+      callback1 = described_class.new('kyc', { to: 'completed' }, block1)
+      callback2 = described_class.new('identity', { to: 'completed' }, block1)
+      
+      expect(callback1).not_to eq(callback2)
+    end
+  end
 end

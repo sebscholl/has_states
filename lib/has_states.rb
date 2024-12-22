@@ -9,7 +9,6 @@ module HasStates
   class << self
     def configure
       yield(configuration)
-      State.generate_scopes!
     end
 
     def configuration
