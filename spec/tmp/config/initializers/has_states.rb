@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 HasStates.configure do |config|
   # Configure your models here
   # Example:
@@ -7,4 +9,4 @@ HasStates.configure do |config|
   #     type.statuses = ['pending', 'completed', 'rejected']
   #   end
   # end
-end 
+end

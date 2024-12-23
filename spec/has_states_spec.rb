@@ -12,7 +12,6 @@ RSpec.describe HasStates do
   describe 'configuration' do
     before do
       described_class.configure do |config|
-
         # User configuration
         config.configure_model User do |model|
           model.state_type :kyc do |type|
@@ -34,18 +33,18 @@ RSpec.describe HasStates do
     end
 
     it 'configures the state types for User' do
-      expect(described_class.configuration.state_types_for(User).keys).to eq(['kyc', 'onboarding'])
+      expect(described_class.configuration.state_types_for(User).keys).to eq(%w[kyc onboarding])
     end
-  
+
     it 'configures the statuses for User' do
       expect(described_class.configuration.statuses_for(User, 'kyc')).to eq(%w[pending completed])
       expect(described_class.configuration.statuses_for(User, 'onboarding')).to eq(%w[started finished])
     end
-  
+
     it 'configures the state types for Company' do
       expect(described_class.configuration.state_types_for(Company).keys).to eq(['procurement'])
     end
-  
+
     it 'configures the statuses for Company' do
       expect(described_class.configuration.statuses_for(Company, 'procurement')).to eq(%w[in_progress completed failed])
     end

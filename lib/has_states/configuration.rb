@@ -12,13 +12,13 @@ module HasStates
       @model_configurations = {}
     end
 
-    def configure_model(model_class, &block)
+    def configure_model(model_class)
       unless model_class.is_a?(Class) && model_class < ActiveRecord::Base
         raise ArgumentError, "#{model_class} must be an ActiveRecord model"
       end
 
       model_config = Configuration::ModelConfiguration.new(model_class)
-      
+
       yield(model_config)
 
       @model_configurations[model_class] = model_config
@@ -26,7 +26,8 @@ module HasStates
     end
 
     def valid_status?(model_class, state_type, status)
-      return false unless @model_configurations[model_class]&.state_types[state_type.to_s]
+      return false unless @model_configurations[model_class]&.state_types&.[](state_type.to_s)
+
       @model_configurations[model_class].state_types[state_type.to_s].statuses.include?(status)
     end
 
@@ -62,7 +63,14 @@ module HasStates
     end
 
     def statuses_for(model_class, state_type)
-      @model_configurations[model_class]&.state_types[state_type.to_s]&.statuses
+      config = @model_configurations[model_class]
+      return nil unless config
+
+      state_types = config.state_types
+      return nil unless state_types
+
+      state_type_config = state_types[state_type.to_s]
+      state_type_config&.statuses
     end
 
     private

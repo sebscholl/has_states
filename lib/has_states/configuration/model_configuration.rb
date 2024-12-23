@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HasStates
   class Configuration
     class ModelConfiguration
@@ -8,15 +10,16 @@ module HasStates
         @state_types = {}
       end
 
-      def state_type(name, &block)
+      def state_type(name)
         type = StateTypeConfiguration.new(name)
-        
+
         yield(type) if block_given?
-        
+
         @state_types[name.to_s] = type
-        
+
         generate_state_type_scope(name)
         generate_status_predicates(type.statuses)
+        generate_state_type_status_predicates(name, type.statuses)
       end
 
       private
@@ -32,6 +35,14 @@ module HasStates
           end
         end
       end
+
+      def generate_state_type_status_predicates(state_type, statuses)
+        statuses.each do |status_name|
+          @model_class.define_method(:"#{state_type}_#{status_name}?") do
+            states.where(state_type: state_type, status: status_name).exists?
+          end
+        end
+      end
     end
   end
-end 
+end

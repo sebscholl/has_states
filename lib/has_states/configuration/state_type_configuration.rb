@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HasStates
   class Configuration
     class StateTypeConfiguration
@@ -10,4 +12,4 @@ module HasStates
       end
     end
   end
-end 
+end

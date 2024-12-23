@@ -12,11 +12,11 @@ RSpec.describe HasStates::State, type: :model do
     HasStates.configure do |config|
       config.configure_model User do |model|
         model.state_type :kyc do |type|
-          type.statuses = ['pending', 'completed']
+          type.statuses = %w[pending completed]
         end
-        
+
         model.state_type :onboarding do |type|
-          type.statuses = ['pending', 'completed']
+          type.statuses = %w[pending completed]
         end
       end
     end
@@ -97,14 +97,14 @@ RSpec.describe HasStates::State, type: :model do
           utility_bill: { status: 'pending' }
         }
       }
-      
+
       state = user.add_state('kyc', metadata: metadata)
       expect(state.metadata['documents']['passport']['reason']).to eq('expired')
     end
 
     it 'handles arrays in metadata' do
       metadata = {
-        missing_documents: ['passport', 'utility_bill'],
+        missing_documents: %w[passport utility_bill],
         review_history: [
           { date: '2024-01-01', status: 'rejected' },
           { date: '2024-01-02', status: 'approved' }
@@ -112,7 +112,7 @@ RSpec.describe HasStates::State, type: :model do
       }
 
       state = user.add_state('kyc', metadata: metadata)
-      expect(state.metadata['missing_documents']).to eq(['passport', 'utility_bill'])
+      expect(state.metadata['missing_documents']).to eq(%w[passport utility_bill])
       expect(state.metadata['review_history'].size).to eq(2)
     end
 
@@ -155,7 +155,7 @@ RSpec.describe HasStates::State, type: :model do
       HasStates.configure do |config|
         config.configure_model User do |model|
           model.state_type :onboarding do |type|
-            type.statuses = ['pending', 'completed']
+            type.statuses = %w[pending completed]
           end
         end
 
@@ -173,7 +173,7 @@ RSpec.describe HasStates::State, type: :model do
 
       # Update to completed
       state.update!(status: 'completed')
-      
+
       # Verify callback was executed
       expect(user.reload.name).to eq('Onboarded User')
     end
@@ -181,10 +181,10 @@ RSpec.describe HasStates::State, type: :model do
     it 'does not execute callback for other status changes' do
       state = user.add_state('onboarding', status: 'completed')
       user.update!(name: 'Original Name')
-      
+
       # Update to pending
       state.update!(status: 'pending')
-      
+
       # Verify callback was not executed
       expect(user.reload.name).to eq('Original Name')
     end
@@ -192,7 +192,7 @@ RSpec.describe HasStates::State, type: :model do
 
   describe 'limited execution callbacks' do
     let(:user) { create(:user) }
-    
+
     before do
       # Clear ALL configuration
       HasStates.configuration.clear_callbacks!
@@ -202,7 +202,7 @@ RSpec.describe HasStates::State, type: :model do
       HasStates.configure do |config|
         config.configure_model User do |model|
           model.state_type :onboarding do |type|
-            type.statuses = ['pending', 'completed']
+            type.statuses = %w[pending completed]
           end
         end
       end
@@ -221,13 +221,13 @@ RSpec.describe HasStates::State, type: :model do
       state1 = user.add_state('onboarding', status: 'pending')
       state1.update!(status: 'completed')
       expect(user.reload.name).to eq('Execution 1')
-      
+
       # Second execution
       state2 = user.add_state('onboarding', status: 'pending')
       state2.update!(status: 'completed')
       expect(user.reload.name).to eq('Execution 2')
-      
-       # Third execution - callback should be expired
+
+      # Third execution - callback should be expired
       user.update!(name: 'Final Name')
       state3 = user.add_state('onboarding', status: 'pending')
       state3.update!(status: 'completed')
@@ -255,10 +255,10 @@ RSpec.describe HasStates::State, type: :model do
         end
       end
 
-      expect {
+      expect do
         state = user.add_state('onboarding', status: 'pending')
         state.update!(status: 'completed')
-      }.to change { HasStates.configuration.callbacks.size }.from(1).to(0)
+      end.to change { HasStates.configuration.callbacks.size }.from(1).to(0)
     end
   end
 end

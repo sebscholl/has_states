@@ -15,7 +15,7 @@ RSpec.describe HasStates::Configuration do
     it 'configures models with their state types and statuses' do
       configuration.configure_model User do |model|
         model.state_type :kyc do |type|
-          type.statuses = ['pending', 'completed']
+          type.statuses = %w[pending completed]
         end
       end
 
@@ -26,11 +26,11 @@ RSpec.describe HasStates::Configuration do
     it 'allows different statuses for different state types' do
       configuration.configure_model User do |model|
         model.state_type :kyc do |type|
-          type.statuses = ['pending', 'verified']
+          type.statuses = %w[pending verified]
         end
 
         model.state_type :onboarding do |type|
-          type.statuses = ['started', 'completed']
+          type.statuses = %w[started completed]
         end
       end
 
@@ -42,13 +42,13 @@ RSpec.describe HasStates::Configuration do
     it 'allows different configurations for different models' do
       configuration.configure_model User do |model|
         model.state_type :kyc do |type|
-          type.statuses = ['pending', 'verified']
+          type.statuses = %w[pending verified]
         end
       end
 
       configuration.configure_model Company do |model|
         model.state_type :onboarding do |type|
-          type.statuses = ['pending', 'active']
+          type.statuses = %w[pending active]
         end
       end
 
@@ -68,11 +68,11 @@ RSpec.describe HasStates::Configuration do
     end
 
     it 'raises error for non-ActiveRecord models' do
-      expect {
+      expect do
         configuration.configure_model String do |model|
           model.state_type :test
         end
-      }.to raise_error(ArgumentError, /must be an ActiveRecord model/)
+      end.to raise_error(ArgumentError, /must be an ActiveRecord model/)
     end
   end
 
@@ -82,7 +82,7 @@ RSpec.describe HasStates::Configuration do
     before do
       configuration.configure_model User do |model|
         model.state_type :kyc do |type|
-          type.statuses = ['pending', 'completed', 'failed']
+          type.statuses = %w[pending completed failed]
         end
       end
 
@@ -103,17 +103,17 @@ RSpec.describe HasStates::Configuration do
       end
 
       it 'registers callbacks with auto-generated ids' do
-        callback = configuration.on(:kyc) { |_s| :some_action }
+        configuration.on(:kyc) { |_s| :some_action }
         expect(configuration.callbacks.keys.last).to match(/\Acallback_\d+\z/)
       end
 
       it 'registers callbacks with custom ids' do
-        callback = configuration.on(:kyc, id: :my_custom_callback) { |_s| :some_action }
+        configuration.on(:kyc, id: :my_custom_callback) { |_s| :some_action }
         expect(configuration.callbacks.keys).to include(:my_custom_callback)
       end
 
       it 'converts string ids to symbols' do
-        callback = configuration.on(:kyc, id: 'my_string_id') { |_s| :some_action }
+        configuration.on(:kyc, id: 'my_string_id') { |_s| :some_action }
         expect(configuration.callbacks.keys).to include(:my_string_id)
       end
     end
@@ -134,7 +134,7 @@ RSpec.describe HasStates::Configuration do
       it 'properly removes callback when given a callback object' do
         callback = configuration.on(:kyc, id: :test) { |_s| :some_action }
         expect(configuration.callbacks.values).to include(callback)
-        
+
         configuration.off(callback)
         expect(configuration.callbacks.values).not_to include(callback)
       end
@@ -150,7 +150,7 @@ RSpec.describe HasStates::Configuration do
       it 'finds callbacks matching state type and conditions regardless of id' do
         configuration.clear_callbacks!
         configuration.on(:kyc, id: :complete_callback, to: 'completed') { |_s| :kyc_completed }
-        
+
         matching = configuration.matching_callbacks(state_completed)
 
         expect(matching.size).to eq(1)

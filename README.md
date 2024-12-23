@@ -4,7 +4,8 @@ HasStates is a flexible state management gem for Ruby on Rails that allows you t
 
 ## Features
 
-- Multiple state machines per model
+- Multiple state types per model
+- Model-specific state configurations
 - JSON metadata storage for each state
 - Configurable callbacks with conditions
 - Limited execution callbacks
@@ -19,111 +20,119 @@ Add this line to your application's Gemfile:
 gem 'has_states'
 ```
 
-And then execute:
+Then execute:
 ```bash
 $ bundle install
 ```
 
-Or install it yourself as:
+Generate the required migration and initializer:
 ```bash
-$ gem install has_states
+$ rails generate has_states:install
 ```
 
-## Setup
-
-Run the installation generator:
-```bash
-$ rails has_states:install
-```
-
-This will create a migration for the states table. Run the migration:
+Finally, run the migration:
 ```bash
 $ rails db:migrate
 ```
 
 ## Configuration
 
-Configure your states with model-specific state types and their allowed statuses:
+Configure your models and their state types in `config/initializers/has_states.rb`:
 
 ```ruby
-# config/initializers/has_states.rb
 HasStates.configure do |config|
-  # Configure state types for User model
-  config.configure_model 'User' do |model|
-    # Define KYC state type and its allowed statuses
+  # Configure states on any model
+  config.configure_model User do |model|
+    # Define state type and its allowed statuses
     model.state_type :kyc do |type|
-      type.statuses = ['pending', 'documents_required', 'under_review', 'approved', 'rejected']
+      type.statuses = [
+        'pending',              # Initial state
+        'documents_required',   # Waiting for documents
+        'under_review',        # Documents being reviewed
+        'approved',            # KYC completed successfully
+        'rejected'             # KYC failed
+      ]
     end
 
-    # Define onboarding state type and its allowed statuses
+    # Define multiple state types per model with different statuses
     model.state_type :onboarding do |type|
-      type.statuses = ['pending', 'email_verified', 'completed']
+      type.statuses = [
+        'pending',          # Just started
+        'email_verified',   # Email verification complete
+        'completed'         # Onboarding finished
+      ]
     end
   end
 
-  # Configure state types for Company model
-  config.configure_model 'Company' do |model|
-    # Companies only need onboarding
-    model.state_type :onboarding do |type|
-      type.statuses = ['pending', 'documents_submitted', 'verified', 'active']
+  # Configure multiple models
+  config.configure_model Company do |model|
+    model.state_type :verification do |type|
+      type.statuses = ['pending', 'verified', 'rejected']
     end
   end
 end
 ```
 
-This configuration would then affect how states are validated and used:
+## Usage
+
+### Basic State Management
 
 ```ruby
-# Valid operations
-user.add_state('kyc', status: 'documents_required')
-user.add_state('onboarding', status: 'email_verified')
-company.add_state('onboarding', status: 'documents_submitted')
-
-# These would raise validation errors
-company.add_state('kyc', status: 'pending')  # Invalid: Companies don't have KYC
-user.add_state('kyc', status: 'active')      # Invalid: 'active' not in KYC statuses
-```
-
-## Basic Usage
-
-First, configure your states in an initializer:
-
-```ruby
-# config/initializers/has_states.rb
-HasStates.configure do |config|
-  config.models = ['User', 'Company']
-  config.state_types = ['kyc', 'onboarding']
-  config.statuses = ['pending', 'completed', 'failed']
-end
-```
-
-Now you can use states in your models:
-
-```ruby
-class User < ApplicationRecord
-  # HasStates is automatically included based on configuration. 
-  # If you want to include it manually, use:
-  # include HasStates::Stateable
-end
-
 user = User.create!(name: 'John')
-
 # Add a new state
-state = user.add_state('kyc', status: 'pending', metadata: { 
-  documents: ['passport', 'utility_bill']
+state = user.add_state('kyc', status: 'pending', metadata: {
+  documents: ['passport', 'utility_bill'],
+  notes: 'Awaiting document submission'
 })
 
 # Check current state
-user.current_state('kyc') # => state object
-state.pending? # => true
+current_kyc = user.current_state('kyc')
+
+# Predicate methods are generated for every status.
+current_kyc.pending?  # => true
+current_kyc.approved? # => false
 
 # Update state
-state.update!(status: 'completed')
+current_kyc.update!(status: 'under_review')
+
+# Check state for record 
+user.kyc_pending? # => true
+user.kyc_completed? # => false
+
+# See all states for record
+user.states # => [#<HasStates::State...>]
 ```
 
-## Callbacks
+### Working with Metadata
 
-You can register callbacks that execute when states change:
+Each state can store arbitrary metadata as JSON:
+
+```ruby
+# Store complex metadata
+state = user.add_state('kyc', metadata: {
+  documents: {
+    passport: { 
+      status: 'verified',
+      verified_at: Time.current,
+      verified_by: 'admin@example.com'
+    },
+    utility_bill: { 
+      status: 'rejected',
+      reason: 'Document expired'
+    }
+  },
+  risk_score: 85,
+  notes: ['Requires additional verification', 'High-risk jurisdiction']
+})
+
+# Access metadata
+state.metadata['documents']['passport']['status'] # => "verified"
+state.metadata['risk_score'] # => 85
+```
+
+### Callbacks
+
+Register callbacks that execute when states change:
 
 ```ruby
 HasStates.configure do |config|
@@ -132,52 +141,34 @@ HasStates.configure do |config|
     UserMailer.kyc_completed(state.stateable).deliver_later
   end
 
-  # Callback with custom ID
-  config.on(:kyc, id: :notify_admin, to: 'failed') do |state|
-    AdminNotifier.kyc_failed(state)
+  # Callback with custom ID for easy removal
+  config.on(:kyc, id: :notify_admin, to: 'rejected') do |state|
+    AdminNotifier.kyc_rejected(state)
   end
 
-  # Limited execution callback (runs only twice)
-  config.on(:onboarding, to: 'completed', times: 2) do |state|
+  # Callback that runs only once
+  config.on(:onboarding, to: 'completed', times: 1) do |state|
     WelcomeMailer.send_welcome(state.stateable)
   end
+
+  # Callback with from/to conditions
+  config.on(:kyc, from: 'pending', to: 'under_review') do |state|
+    NotificationService.notify_review_started(state)
+  end
 end
+
+# Remove callbacks
+HasStates.configuration.off(:notify_admin)  # Remove by ID
+HasStates.configuration.off(callback)       # Remove by callback object
 ```
 
-Remove callbacks:
-```ruby
-# Remove by ID
-HasStates.configuration.off(:notify_admin)
-
-# Remove by callback object
-callback = HasStates.configuration.on(:kyc) { |state| puts "Called" }
-HasStates.configuration.off(callback)
-```
-
-## Metadata
-
-Each state can store arbitrary metadata as JSON:
-
-```ruby
-state = user.add_state('kyc', metadata: {
-  documents: {
-    passport: { status: 'verified', verified_at: Time.current },
-    utility_bill: { status: 'pending' }
-  },
-  notes: ['Document expired', 'Needs review'],
-  reviewer_id: 123
-})
-
-state.metadata['documents']['passport']['status'] # => "verified"
-```
-
-## Scopes
+### Scopes
 
 HasStates automatically generates scopes for your state types:
 
 ```ruby
-HasStates::State.kyc # => Returns all KYC states
-HasStates::State.onboarding # => Returns all onboarding states
+HasStates::State.kyc              # All KYC states
+HasStates::State.onboarding      # All onboarding states
 ```
 
 ## Contributing

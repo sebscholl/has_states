@@ -2,9 +2,17 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in has_states.gemspec
 gemspec
 
-gem 'rake'
-
-gem 'rspec'
+group :development, :test do
+  gem 'ammeter'
+  gem 'appraisal'
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
+  gem 'rake'
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'rubocop'
+  gem 'shoulda-matchers'
+  gem 'sqlite3'
+end

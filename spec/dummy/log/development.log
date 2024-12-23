@@ -125,3 +125,18 @@ Migrating to CreateHasStatesTables (20241221183116)
   [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
   [1m[36mHasStates::State Update (0.6ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'completed', "updated_at" = '2024-12-22 23:11:07.933844' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
   [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Load (0.2ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' /* loading for pp */ LIMIT 11 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Pluck (0.3ms)[0m  [1m[34mSELECT "has_states_states"."id" FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' /*application='Dummy'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mCompany Load (0.2ms)[0m  [1m[34mSELECT "companies".* FROM "companies" ORDER BY "companies"."id" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Load (0.2ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" ORDER BY "has_states_states"."id" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Load (0.2ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" ORDER BY "has_states_states"."id" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' AND "has_states_states"."state_type" = 'onboarding' AND "has_states_states"."status" = 'pending' LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' AND "has_states_states"."state_type" = 'onboarding' AND "has_states_states"."status" = 'email_verified' LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Load (0.4ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' /* loading for pp */ LIMIT 11 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' AND "has_states_states"."state_type" = 'kyc' AND "has_states_states"."status" = 'under_review' LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Load (0.3ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."state_type" = 'onboarding' /* loading for pp */ LIMIT 11 /*application='Dummy'*/[0m

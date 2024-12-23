@@ -10,7 +10,7 @@ module HasStates
     validate :state_type_is_configured
 
     after_save :trigger_callbacks, if: :saved_change_to_status?
-  
+
     private
 
     def status_is_configured

@@ -1,0 +1,41 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
+
+# Don't require documentation for classes/modules
+Style/Documentation:
+  Enabled: false
+
+# Allow long blocks in specs
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - '*.gemspec'
+
+# Allow classes to be long in specs
+Metrics/ClassLength:
+  Exclude:
+    - 'spec/**/*'
+
+# More lenient line length
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - 'spec/**/*'
+
+# Don't enforce double quotes
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
+
+# More reasonable method length
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
+    - 'spec/**/*'
+
+# Don't enforce frozen string literals
+Style/FrozenStringLiteralComment:
+  Enabled: false 

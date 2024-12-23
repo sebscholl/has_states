@@ -31,12 +31,10 @@ module HasStates
     def call(state)
       result = block.call(state)
       @execution_count += 1
-      
+
       # Remove self from configuration if this was the last execution
-      if expired?
-        HasStates.configuration.off(self)
-      end
-      
+      HasStates.configuration.off(self) if expired?
+
       result
     end
 
