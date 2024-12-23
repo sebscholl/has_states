@@ -11,38 +11,23 @@ module HasStates
 
     after_save :trigger_callbacks, if: :saved_change_to_status?
   
-    def self.generate_scopes!
-      generate_state_type_scopes
-    end
-
-    def self.generate_predicates!
-      generate_status_predicates
-    end
-
     private
 
-    def self.generate_state_type_scopes
-      HasStates.configuration.state_types.each do |state_type|
-        scope state_type, -> { where(state_type: state_type) }
-      end
-    end
-
-    def self.generate_status_predicates
-      HasStates.configuration.statuses.each do |status_name|
-        define_method(:"#{status_name}?") do
-          status == status_name
-        end
-      end
-    end
-
     def status_is_configured
-      return if HasStates.configuration.statuses.include?(status)
+      return if HasStates.configuration.valid_status?(
+        stateable_type.constantize,
+        state_type,
+        status
+      )
 
       errors.add(:status, 'is not configured')
     end
 
     def state_type_is_configured
-      return if HasStates.configuration.state_types.include?(state_type)
+      return if HasStates.configuration.valid_state_type?(
+        stateable_type.constantize,
+        state_type
+      )
 
       errors.add(:state_type, 'is not configured')
     end

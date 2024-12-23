@@ -4,29 +4,34 @@ module HasStates
   class Configuration
     include Singleton
 
-    attr_reader :callbacks, :models, :state_types, :statuses
+    attr_reader :callbacks, :model_configurations
 
     def initialize
-      @models = []
-      @statuses = []
       @callbacks = {}
-      @state_types = []
       @next_callback_id = 0
+      @model_configurations = {}
     end
 
-    def models=(model_names)
-      @models = Array(model_names)
-      include_stateable_in_models
+    def configure_model(model_class, &block)
+      unless model_class.is_a?(Class) && model_class < ActiveRecord::Base
+        raise ArgumentError, "#{model_class} must be an ActiveRecord model"
+      end
+
+      model_config = Configuration::ModelConfiguration.new(model_class)
+      
+      yield(model_config)
+
+      @model_configurations[model_class] = model_config
+      model_class.include(Stateable) unless model_class.included_modules.include?(Stateable)
     end
 
-    def state_types=(types)
-      @state_types = Array(types)
-      State.generate_scopes!
+    def valid_status?(model_class, state_type, status)
+      return false unless @model_configurations[model_class]&.state_types[state_type.to_s]
+      @model_configurations[model_class].state_types[state_type.to_s].statuses.include?(status)
     end
 
-    def statuses=(statuses)
-      @statuses = Array(statuses)
-      State.generate_predicates!
+    def valid_state_type?(model_class, state_type)
+      @model_configurations[model_class]&.state_types&.key?(state_type.to_s)
     end
 
     def on(state_type, id: nil, **conditions, &block)
@@ -52,16 +57,15 @@ module HasStates
       @callbacks = {}
     end
 
-    private
-
-    def include_stateable_in_models
-      @models.each do |model_name|
-        model = model_name.to_s.classify.constantize
-        model.include(Stateable) unless model.included_modules.include?(Stateable)
-      end
-    rescue NameError => e
-      raise "Could not find model: #{e.message}"
+    def state_types_for(model_class)
+      @model_configurations[model_class]&.state_types
     end
+
+    def statuses_for(model_class, state_type)
+      @model_configurations[model_class]&.state_types[state_type.to_s]&.statuses
+    end
+
+    private
 
     def generate_callback_id
       @next_callback_id += 1

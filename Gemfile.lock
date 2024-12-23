@@ -41,6 +41,10 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
+    ammeter (1.1.7)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-rails (>= 2.2)
     appraisal (2.5.0)
       bundler
       rake
@@ -194,6 +198,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  ammeter
   appraisal
   database_cleaner
   factory_bot_rails

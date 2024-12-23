@@ -2,8 +2,9 @@
 
 require 'active_record'
 require 'has_states/version'
-require 'has_states/install'
 require 'has_states/configuration'
+require 'has_states/configuration/model_configuration'
+require 'has_states/configuration/state_type_configuration'
 
 module HasStates
   class << self

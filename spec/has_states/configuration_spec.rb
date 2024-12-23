@@ -7,63 +7,88 @@ RSpec.describe HasStates::Configuration do
   let(:configuration) { described_class.instance }
 
   before do
-    # Reset configuration before each test
     configuration.clear_callbacks!
-    configuration.models = []
-    configuration.state_types = []
-    configuration.statuses = []
+    configuration.model_configurations.clear
   end
 
-  describe 'defaults' do
-    it 'initializes with empty arrays' do
-      expect(configuration.models).to be_empty
-      expect(configuration.statuses).to be_empty
-      expect(configuration.state_types).to be_empty
-    end
-  end
-
-  describe '#statuses=' do
-    it 'sets statuses and reloads configuration' do
-      expect(HasStates::State).to receive(:generate_predicates!)
-
-      HasStates.configure do |config|
-        config.statuses = %w[pending completed]
+  describe 'model configuration' do
+    it 'configures models with their state types and statuses' do
+      configuration.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = ['pending', 'completed']
+        end
       end
 
-      expect(configuration.statuses).to eq(%w[pending completed])
+      expect(configuration.valid_status?(User, 'kyc', 'pending')).to be true
+      expect(configuration.valid_status?(User, 'kyc', 'invalid')).to be false
     end
-  end
 
-  describe '#state_types=' do
-    it 'sets state_types and reloads configuration' do
-      expect(HasStates::State).to receive(:generate_scopes!)
+    it 'allows different statuses for different state types' do
+      configuration.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = ['pending', 'verified']
+        end
 
-      HasStates.configure do |config|
-        config.state_types = %w[kyc]
+        model.state_type :onboarding do |type|
+          type.statuses = ['started', 'completed']
+        end
       end
 
-      expect(configuration.state_types).to eq(%w[kyc])
+      expect(configuration.valid_status?(User, 'kyc', 'verified')).to be true
+      expect(configuration.valid_status?(User, 'onboarding', 'verified')).to be false
+      expect(configuration.valid_status?(User, 'onboarding', 'completed')).to be true
+    end
+
+    it 'allows different configurations for different models' do
+      configuration.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = ['pending', 'verified']
+        end
+      end
+
+      configuration.configure_model Company do |model|
+        model.state_type :onboarding do |type|
+          type.statuses = ['pending', 'active']
+        end
+      end
+
+      expect(configuration.valid_state_type?(User, 'kyc')).to be true
+      expect(configuration.valid_state_type?(Company, 'kyc')).to be false
+      expect(configuration.valid_state_type?(Company, 'onboarding')).to be true
+    end
+
+    it 'automatically includes Stateable in configured models' do
+      configuration.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = ['pending']
+        end
+      end
+
+      expect(User.included_modules).to include(HasStates::Stateable)
+    end
+
+    it 'raises error for non-ActiveRecord models' do
+      expect {
+        configuration.configure_model String do |model|
+          model.state_type :test
+        end
+      }.to raise_error(ArgumentError, /must be an ActiveRecord model/)
     end
   end
 
   describe 'callbacks' do
-    let(:state_type) { 'kyc' }
-    let(:block) { ->(_state) { puts 'called' } }
-    let(:state_completed) { FactoryBot.create(:state, state_type: 'kyc', status: 'completed') }
+    let(:state_completed) { create(:state, state_type: 'kyc', status: 'completed') }
 
     before do
-      # Clear all callbacks
-      HasStates.configuration.clear_callbacks!
-
-      # Add basic configuration
-      HasStates.configure do |config|
-        config.state_types = [state_type]
-        config.statuses = %w[pending completed failed]
-        # Add callbacks with explicit IDs
-        configuration.on(:kyc, id: :failed_callback, to: 'failed') { |_s| :kyc_failed }
-        configuration.on(:kyc, id: :pending_callback, to: 'pending') { |_s| :kyc_pending }
-        configuration.on(:kyc, id: :complete_callback, to: 'completed') { |_s| :kyc_completed }
+      configuration.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = ['pending', 'completed', 'failed']
+        end
       end
+
+      configuration.on(:kyc, id: :failed_callback, to: 'failed') { |_s| :kyc_failed }
+      configuration.on(:kyc, id: :pending_callback, to: 'pending') { |_s| :kyc_pending }
+      configuration.on(:kyc, id: :complete_callback, to: 'completed') { |_s| :kyc_completed }
     end
 
     describe '#on' do
@@ -127,46 +152,9 @@ RSpec.describe HasStates::Configuration do
         configuration.on(:kyc, id: :complete_callback, to: 'completed') { |_s| :kyc_completed }
         
         matching = configuration.matching_callbacks(state_completed)
+
         expect(matching.size).to eq(1)
         expect(matching.first.call(state_completed)).to eq(:kyc_completed)
-      end
-    end
-  end
-
-  describe '#models=' do
-    it 'includes Stateable in configured models' do
-      HasStates.configure do |config|
-        config.models = ['User']
-      end
-
-      expect(User.included_modules).to include(HasStates::Stateable)
-    end
-
-    it 'handles symbol model names' do
-      HasStates.configure do |config|
-        config.models = [:user]
-      end
-
-      expect(User.included_modules).to include(HasStates::Stateable)
-    end
-
-    it 'raises error for non-existent models' do
-      expect {
-        HasStates.configure do |config|
-          config.models = ['NonExistentModel']
-        end
-      }.to raise_error(/Could not find model/)
-    end
-
-    it 'does not double-include Stateable' do
-      HasStates.configure do |config|
-        config.models = ['User']
-      end
-
-      expect(User).not_to receive(:include)
-      
-      HasStates.configure do |config|
-        config.models = ['User']
       end
     end
   end

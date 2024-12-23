@@ -41,6 +41,49 @@ This will create a migration for the states table. Run the migration:
 $ rails db:migrate
 ```
 
+## Configuration
+
+Configure your states with model-specific state types and their allowed statuses:
+
+```ruby
+# config/initializers/has_states.rb
+HasStates.configure do |config|
+  # Configure state types for User model
+  config.configure_model 'User' do |model|
+    # Define KYC state type and its allowed statuses
+    model.state_type :kyc do |type|
+      type.statuses = ['pending', 'documents_required', 'under_review', 'approved', 'rejected']
+    end
+
+    # Define onboarding state type and its allowed statuses
+    model.state_type :onboarding do |type|
+      type.statuses = ['pending', 'email_verified', 'completed']
+    end
+  end
+
+  # Configure state types for Company model
+  config.configure_model 'Company' do |model|
+    # Companies only need onboarding
+    model.state_type :onboarding do |type|
+      type.statuses = ['pending', 'documents_submitted', 'verified', 'active']
+    end
+  end
+end
+```
+
+This configuration would then affect how states are validated and used:
+
+```ruby
+# Valid operations
+user.add_state('kyc', status: 'documents_required')
+user.add_state('onboarding', status: 'email_verified')
+company.add_state('onboarding', status: 'documents_submitted')
+
+# These would raise validation errors
+company.add_state('kyc', status: 'pending')  # Invalid: Companies don't have KYC
+user.add_state('kyc', status: 'active')      # Invalid: 'active' not in KYC statuses
+```
+
 ## Basic Usage
 
 First, configure your states in an initializer:

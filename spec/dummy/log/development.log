@@ -93,3 +93,35 @@ Migrating to CreateHasStatesTables (20241221183116)
   [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241221183116') RETURNING "version" /*application='Dummy'*/[0m
   [1m[36mTRANSACTION (14.5ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES ('Bob', '2024-12-22 23:04:52.396539', '2024-12-22 23:04:52.396539') RETURNING "id" /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (17.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Create (0.6ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES ('kyc', 'pending', '{}', 'User', 1, NULL, '2024-12-22 23:04:54.237462', '2024-12-22 23:04:54.237462') RETURNING "id" /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Load (0.3ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' /* loading for pp */ LIMIT 11 /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Load (0.3ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' ORDER BY "has_states_states"."id" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Update (0.6ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'rejected', "updated_at" = '2024-12-22 23:08:18.796095' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Update (0.6ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'completed', "updated_at" = '2024-12-22 23:08:25.889539' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Update (0.8ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'pending', "updated_at" = '2024-12-22 23:09:26.940672' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Update (0.7ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'completed', "updated_at" = '2024-12-22 23:09:31.427987' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Update (0.8ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'pending', "updated_at" = '2024-12-22 23:09:59.865172' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Update (0.6ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'completed', "updated_at" = '2024-12-22 23:10:07.552494' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Update (1.4ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'pending', "updated_at" = '2024-12-22 23:10:59.292605' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Dummy'*/[0m
+  [1m[36mHasStates::State Update (0.6ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = 'completed', "updated_at" = '2024-12-22 23:11:07.933844' WHERE "has_states_states"."id" = 1 /*application='Dummy'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Dummy'*/[0m

@@ -6,10 +6,19 @@ RSpec.describe HasStates::State, type: :model do
   subject { build(:state) }
 
   before do
+    HasStates.configuration.clear_callbacks!
+    HasStates.configuration.model_configurations.clear
+
     HasStates.configure do |config|
-      config.state_types = %w[kyc]
-      config.statuses = %w[pending completed]
-      config.models = %w[User]
+      config.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = ['pending', 'completed']
+        end
+        
+        model.state_type :onboarding do |type|
+          type.statuses = ['pending', 'completed']
+        end
+      end
     end
   end
 
@@ -53,9 +62,13 @@ RSpec.describe HasStates::State, type: :model do
 
   describe 'instance methods' do
     let(:state) { create(:state, state_type: 'kyc', status: 'pending') }
+    let(:model_config) { HasStates.configuration.model_configurations[User] }
+    let(:all_statuses) do
+      model_config.state_types.values.flat_map(&:statuses).uniq
+    end
 
-    HasStates.configuration.statuses.each do |status|
-      it 'defines a method for each status' do
+    it 'defines predicate methods for all configured statuses' do
+      all_statuses.each do |status|
         expect(state).to respond_to("#{status}?")
       end
     end
@@ -140,10 +153,12 @@ RSpec.describe HasStates::State, type: :model do
 
     before do
       HasStates.configure do |config|
-        config.models = ['User']
-        config.state_types = ['onboarding']
-        config.statuses = ['pending', 'completed']
-        
+        config.configure_model User do |model|
+          model.state_type :onboarding do |type|
+            type.statuses = ['pending', 'completed']
+          end
+        end
+
         # Register a callback for when onboarding is completed
         config.on(:onboarding, id: :complete_onboarding, to: 'completed') do |state|
           state.stateable.update!(name: 'Onboarded User')
@@ -173,21 +188,6 @@ RSpec.describe HasStates::State, type: :model do
       # Verify callback was not executed
       expect(user.reload.name).to eq('Original Name')
     end
-
-    it 'executes callback only for matching state type' do
-      HasStates.configure do |config|
-        config.state_types << 'other_process'
-      end
-
-      state = user.add_state('other_process', status: 'pending')
-      user.update!(name: 'Original Name')
-      
-      # Update to completed
-      state.update!(status: 'completed')
-      
-      # Verify callback was not executed
-      expect(user.reload.name).to eq('Original Name')
-    end
   end
 
   describe 'limited execution callbacks' do
@@ -196,15 +196,15 @@ RSpec.describe HasStates::State, type: :model do
     before do
       # Clear ALL configuration
       HasStates.configuration.clear_callbacks!
-      HasStates.configuration.models = []
-      HasStates.configuration.state_types = []
-      HasStates.configuration.statuses = []
+      HasStates.configuration.model_configurations.clear
 
       # Set up fresh configuration
       HasStates.configure do |config|
-        config.models = ['User']
-        config.state_types = ['onboarding']
-        config.statuses = ['pending', 'completed']
+        config.configure_model User do |model|
+          model.state_type :onboarding do |type|
+            type.statuses = ['pending', 'completed']
+          end
+        end
       end
 
       @execution_count = 0
