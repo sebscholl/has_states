@@ -17,7 +17,7 @@ HasStates is a flexible state management gem for Ruby on Rails that allows you t
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'has_states'
+gem 'stateful_models'
 ```
 
 Then execute:
