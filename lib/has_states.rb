@@ -11,13 +11,14 @@ module HasStates
     def configure
       yield(configuration)
     end
-
+    
     def configuration
       Configuration.instance
     end
   end
 end
 
+require 'has_states/base'
 require 'has_states/state'
 require 'has_states/callback'
 require 'has_states/stateable'

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    has_state (0.0.1)
+    stateful_models (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -202,13 +202,13 @@ DEPENDENCIES
   appraisal
   database_cleaner
   factory_bot_rails
-  has_state!
   rake
   rspec
   rspec-rails
   rubocop
   shoulda-matchers
   sqlite3
+  stateful_models!
 
 BUNDLED WITH
    2.6.1

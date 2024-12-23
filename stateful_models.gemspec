@@ -3,7 +3,7 @@
 require_relative 'lib/has_states/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'has_state'
+  spec.name = 'stateful_models'
   spec.version = HasStates::VERSION
   spec.authors = ['Sebastian Scholl']
   spec.email = ['sebscholl@gmail.com']

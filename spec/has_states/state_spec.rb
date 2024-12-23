@@ -261,4 +261,66 @@ RSpec.describe HasStates::State, type: :model do
       end.to change { HasStates.configuration.callbacks.size }.from(1).to(0)
     end
   end
+
+  describe 'custom state types' do
+    # Create a custom state class for testing
+    class KYCState < HasStates::Base
+      validates :metadata, presence: true
+      validate :required_metadata_fields
+      
+      private
+      
+      def required_metadata_fields
+        return if metadata&.key?('document_type')
+        errors.add(:metadata, 'must include document_type')
+      end
+    end
+
+    let(:user) { create(:user) }
+
+    it 'allows creation of custom state types' do
+      state = user.add_state(
+        'kyc',
+        status: 'pending',
+        metadata: { document_type: 'passport' },
+        state_class: KYCState
+      )
+
+      expect(state).to be_valid
+      expect(state).to be_a(KYCState)
+    end
+
+    it 'enforces custom validations' do
+      expect do
+        user.add_state(
+          'kyc',
+          status: 'pending',
+          metadata: { other_field: 'value' },
+          state_class: KYCState
+        )
+      end.to raise_error(
+        ActiveRecord::RecordInvalid,
+        /Metadata must include document_type/
+      )
+    end
+
+    it 'defaults to HasStates::State when no state_class specified' do
+      state = user.add_state('kyc', status: 'pending')
+      
+      expect(state).to be_a(HasStates::State)
+      expect(state).to be_valid
+    end
+
+    it 'maintains STI type across database reads' do
+      state = user.add_state(
+        'kyc',
+        status: 'pending',
+        metadata: { document_type: 'passport' },
+        state_class: KYCState
+      )
+
+      reloaded_state = HasStates::Base.find(state.id)
+      expect(reloaded_state).to be_a(KYCState)
+    end
+  end
 end
