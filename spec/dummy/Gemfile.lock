@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    has_states (0.1.0)
+    has_state (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -272,7 +272,7 @@ PLATFORMS
 DEPENDENCIES
   brakeman
   debug
-  has_states!
+  has_state!
   kamal
   puma (>= 5.0)
   rails (~> 8.0.1)

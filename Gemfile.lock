@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    has_states (0.1.0)
+    has_state (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -202,7 +202,7 @@ DEPENDENCIES
   appraisal
   database_cleaner
   factory_bot_rails
-  has_states!
+  has_state!
   rake
   rspec
   rspec-rails

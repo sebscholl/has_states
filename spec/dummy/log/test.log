@@ -16216,3 +16216,437 @@
   [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Executed"], ["updated_at", "2024-12-23 01:41:47.144880"], ["id", 1]]
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (3.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "users"[0m
+  [1m[35m (14.5ms)[0m  [1m[31mDELETE FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'users';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "has_states_states"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "has_states_states"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'has_states_states';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "companies"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "companies"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'companies';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 1"], ["created_at", "2024-12-23 02:03:51.414257"], ["updated_at", "2024-12-23 02:03:51.414257"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.6ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "completed"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.445620"], ["updated_at", "2024-12-23 02:03:51.445620"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 2"], ["created_at", "2024-12-23 02:03:51.462692"], ["updated_at", "2024-12-23 02:03:51.462692"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "completed"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.465852"], ["updated_at", "2024-12-23 02:03:51.465852"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 9"], ["created_at", "2024-12-23 02:03:51.487223"], ["updated_at", "2024-12-23 02:03:51.487223"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.2ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.489660"], ["updated_at", "2024-12-23 02:03:51.489660"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Load (0.1ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."state_type" = ?[0m  [["state_type", "kyc"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 10"], ["created_at", "2024-12-23 02:03:51.493919"], ["updated_at", "2024-12-23 02:03:51.493919"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.495378"], ["updated_at", "2024-12-23 02:03:51.495378"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 11"], ["created_at", "2024-12-23 02:03:51.500994"], ["updated_at", "2024-12-23 02:03:51.500994"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.2ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.502739"], ["updated_at", "2024-12-23 02:03:51.502739"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (3.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 12"], ["created_at", "2024-12-23 02:03:51.512722"], ["updated_at", "2024-12-23 02:03:51.512722"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.6ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.525282"], ["updated_at", "2024-12-23 02:03:51.525282"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (6.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 13"], ["created_at", "2024-12-23 02:03:51.538869"], ["updated_at", "2024-12-23 02:03:51.538869"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.5ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"reason\":\"documents_missing\"}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.586736"], ["updated_at", "2024-12-23 02:03:51.586736"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (4.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 14"], ["created_at", "2024-12-23 02:03:51.596780"], ["updated_at", "2024-12-23 02:03:51.596780"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (3.1ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"documents\":{\"passport\":{\"status\":\"rejected\",\"reason\":\"expired\"},\"utility_bill\":{\"status\":\"pending\"}}}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.606837"], ["updated_at", "2024-12-23 02:03:51.606837"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 15"], ["created_at", "2024-12-23 02:03:51.619231"], ["updated_at", "2024-12-23 02:03:51.619231"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.7ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"missing_documents\":[\"passport\",\"utility_bill\"],\"review_history\":[{\"date\":\"2024-01-01\",\"status\":\"rejected\"},{\"date\":\"2024-01-02\",\"status\":\"approved\"}]}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.626087"], ["updated_at", "2024-12-23 02:03:51.626087"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 16"], ["created_at", "2024-12-23 02:03:51.632145"], ["updated_at", "2024-12-23 02:03:51.632145"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"string_value\":\"test\",\"integer_value\":42,\"float_value\":42.5,\"boolean_value\":true,\"null_value\":null,\"date_value\":\"2024-01-01\"}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.634335"], ["updated_at", "2024-12-23 02:03:51.634335"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 17"], ["created_at", "2024-12-23 02:03:51.637265"], ["updated_at", "2024-12-23 02:03:51.637265"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.641725"], ["updated_at", "2024-12-23 02:03:51.641725"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 18"], ["created_at", "2024-12-23 02:03:51.645036"], ["updated_at", "2024-12-23 02:03:51.645036"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.2ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"key\":\"value\"}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.647511"], ["updated_at", "2024-12-23 02:03:51.647511"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Load (0.6ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 19"], ["created_at", "2024-12-23 02:03:51.651477"], ["updated_at", "2024-12-23 02:03:51.651477"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.653468"], ["updated_at", "2024-12-23 02:03:51.653468"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:03:51.654938"], ["id", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Onboarded User"], ["updated_at", "2024-12-23 02:03:51.656178"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 20"], ["created_at", "2024-12-23 02:03:51.660374"], ["updated_at", "2024-12-23 02:03:51.660374"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.2ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "completed"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.662721"], ["updated_at", "2024-12-23 02:03:51.662721"]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Onboarded User"], ["updated_at", "2024-12-23 02:03:51.663849"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Original Name"], ["updated_at", "2024-12-23 02:03:51.664736"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.1ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "pending"], ["updated_at", "2024-12-23 02:03:51.665572"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 21"], ["created_at", "2024-12-23 02:03:51.669083"], ["updated_at", "2024-12-23 02:03:51.669083"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.671378"], ["updated_at", "2024-12-23 02:03:51.671378"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:03:51.673574"], ["id", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 1"], ["updated_at", "2024-12-23 02:03:51.675010"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.4ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.677544"], ["updated_at", "2024-12-23 02:03:51.677544"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.3ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:03:51.679321"], ["id", 2]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 2"], ["updated_at", "2024-12-23 02:03:51.680674"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Final Name"], ["updated_at", "2024-12-23 02:03:51.682146"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.2ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.683621"], ["updated_at", "2024-12-23 02:03:51.683621"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:03:51.684722"], ["id", 3]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 22"], ["created_at", "2024-12-23 02:03:51.687934"], ["updated_at", "2024-12-23 02:03:51.687934"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.2ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.690205"], ["updated_at", "2024-12-23 02:03:51.690205"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:03:51.691426"], ["id", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 1"], ["updated_at", "2024-12-23 02:03:51.692428"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.695023"], ["updated_at", "2024-12-23 02:03:51.695023"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.1ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:03:51.696350"], ["id", 2]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 2"], ["updated_at", "2024-12-23 02:03:51.697171"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.2ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.699058"], ["updated_at", "2024-12-23 02:03:51.699058"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.1ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:03:51.700115"], ["id", 3]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 3"], ["updated_at", "2024-12-23 02:03:51.701137"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 23"], ["created_at", "2024-12-23 02:03:51.704117"], ["updated_at", "2024-12-23 02:03:51.704117"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.4ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:03:51.706331"], ["updated_at", "2024-12-23 02:03:51.706331"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:03:51.708097"], ["id", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Executed"], ["updated_at", "2024-12-23 02:03:51.709169"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (3.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "users"[0m
+  [1m[35m (14.8ms)[0m  [1m[31mDELETE FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'users';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "has_states_states"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "has_states_states"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'has_states_states';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "companies"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "companies"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'companies';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 1"], ["created_at", "2024-12-23 02:04:32.396449"], ["updated_at", "2024-12-23 02:04:32.396449"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.5ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "completed"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.405560"], ["updated_at", "2024-12-23 02:04:32.405560"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 2"], ["created_at", "2024-12-23 02:04:32.441215"], ["updated_at", "2024-12-23 02:04:32.441215"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.4ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "completed"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.445054"], ["updated_at", "2024-12-23 02:04:32.445054"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 9"], ["created_at", "2024-12-23 02:04:32.475447"], ["updated_at", "2024-12-23 02:04:32.475447"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.5ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.479477"], ["updated_at", "2024-12-23 02:04:32.479477"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Load (0.2ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."state_type" = ?[0m  [["state_type", "kyc"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 10"], ["created_at", "2024-12-23 02:04:32.486673"], ["updated_at", "2024-12-23 02:04:32.486673"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (1.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.489334"], ["updated_at", "2024-12-23 02:04:32.489334"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 11"], ["created_at", "2024-12-23 02:04:32.497089"], ["updated_at", "2024-12-23 02:04:32.497089"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (1.0ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.499586"], ["updated_at", "2024-12-23 02:04:32.499586"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 12"], ["created_at", "2024-12-23 02:04:32.507460"], ["updated_at", "2024-12-23 02:04:32.507460"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.6ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.510785"], ["updated_at", "2024-12-23 02:04:32.510785"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 13"], ["created_at", "2024-12-23 02:04:32.517006"], ["updated_at", "2024-12-23 02:04:32.517006"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.8ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"reason\":\"documents_missing\"}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.534662"], ["updated_at", "2024-12-23 02:04:32.534662"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 14"], ["created_at", "2024-12-23 02:04:32.540498"], ["updated_at", "2024-12-23 02:04:32.540498"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.6ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"documents\":{\"passport\":{\"status\":\"rejected\",\"reason\":\"expired\"},\"utility_bill\":{\"status\":\"pending\"}}}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.544712"], ["updated_at", "2024-12-23 02:04:32.544712"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 15"], ["created_at", "2024-12-23 02:04:32.549387"], ["updated_at", "2024-12-23 02:04:32.549387"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.6ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"missing_documents\":[\"passport\",\"utility_bill\"],\"review_history\":[{\"date\":\"2024-01-01\",\"status\":\"rejected\"},{\"date\":\"2024-01-02\",\"status\":\"approved\"}]}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.553271"], ["updated_at", "2024-12-23 02:04:32.553271"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 16"], ["created_at", "2024-12-23 02:04:32.558650"], ["updated_at", "2024-12-23 02:04:32.558650"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.6ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"string_value\":\"test\",\"integer_value\":42,\"float_value\":42.5,\"boolean_value\":true,\"null_value\":null,\"date_value\":\"2024-01-01\"}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.563221"], ["updated_at", "2024-12-23 02:04:32.563221"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 17"], ["created_at", "2024-12-23 02:04:32.568525"], ["updated_at", "2024-12-23 02:04:32.568525"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.7ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.573017"], ["updated_at", "2024-12-23 02:04:32.573017"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 18"], ["created_at", "2024-12-23 02:04:32.578387"], ["updated_at", "2024-12-23 02:04:32.578387"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.5ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "kyc"], ["status", "pending"], ["metadata", "{\"key\":\"value\"}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.581985"], ["updated_at", "2024-12-23 02:04:32.581985"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Load (0.2ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 19"], ["created_at", "2024-12-23 02:04:32.589330"], ["updated_at", "2024-12-23 02:04:32.589330"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.6ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.593471"], ["updated_at", "2024-12-23 02:04:32.593471"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.5ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:04:32.596220"], ["id", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Onboarded User"], ["updated_at", "2024-12-23 02:04:32.598613"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 20"], ["created_at", "2024-12-23 02:04:32.604848"], ["updated_at", "2024-12-23 02:04:32.604848"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.4ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "completed"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.608385"], ["updated_at", "2024-12-23 02:04:32.608385"]]
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Onboarded User"], ["updated_at", "2024-12-23 02:04:32.610241"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Original Name"], ["updated_at", "2024-12-23 02:04:32.612195"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.3ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "pending"], ["updated_at", "2024-12-23 02:04:32.613770"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 21"], ["created_at", "2024-12-23 02:04:32.618778"], ["updated_at", "2024-12-23 02:04:32.618778"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.4ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.622266"], ["updated_at", "2024-12-23 02:04:32.622266"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.3ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:04:32.624151"], ["id", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 1"], ["updated_at", "2024-12-23 02:04:32.625477"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.628487"], ["updated_at", "2024-12-23 02:04:32.628487"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.3ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:04:32.630123"], ["id", 2]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 2"], ["updated_at", "2024-12-23 02:04:32.631691"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Final Name"], ["updated_at", "2024-12-23 02:04:32.633691"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.4ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.635770"], ["updated_at", "2024-12-23 02:04:32.635770"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:04:32.637500"], ["id", 3]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 22"], ["created_at", "2024-12-23 02:04:32.641194"], ["updated_at", "2024-12-23 02:04:32.641194"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.643224"], ["updated_at", "2024-12-23 02:04:32.643224"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.3ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:04:32.644756"], ["id", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 1"], ["updated_at", "2024-12-23 02:04:32.645879"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.648103"], ["updated_at", "2024-12-23 02:04:32.648103"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:04:32.649488"], ["id", 2]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 2"], ["updated_at", "2024-12-23 02:04:32.650420"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.3ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.652532"], ["updated_at", "2024-12-23 02:04:32.652532"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:04:32.653867"], ["id", 3]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Execution 3"], ["updated_at", "2024-12-23 02:04:32.654760"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "User 23"], ["created_at", "2024-12-23 02:04:32.657868"], ["updated_at", "2024-12-23 02:04:32.657868"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Create (0.2ms)[0m  [1m[32mINSERT INTO "has_states_states" ("state_type", "status", "metadata", "stateable_type", "stateable_id", "completed_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["state_type", "onboarding"], ["status", "pending"], ["metadata", "{}"], ["stateable_type", "User"], ["stateable_id", 1], ["completed_at", nil], ["created_at", "2024-12-23 02:04:32.659625"], ["updated_at", "2024-12-23 02:04:32.659625"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mHasStates::State Update (0.2ms)[0m  [1m[33mUPDATE "has_states_states" SET "status" = ?, "updated_at" = ? WHERE "has_states_states"."id" = ?[0m  [["status", "completed"], ["updated_at", "2024-12-23 02:04:32.660841"], ["id", 1]]
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Executed"], ["updated_at", "2024-12-23 02:04:32.661764"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m

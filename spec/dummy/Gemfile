@@ -37,4 +37,4 @@ group :development, :test do
 end
 
 # HasStates gem for state management and event system capabilities
-gem 'has_states', path: '../..' # This points to the root of your gem
+gem 'has_state', path: '../..' # This points to the root of your gem
