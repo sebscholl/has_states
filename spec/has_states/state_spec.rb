@@ -63,22 +63,22 @@ RSpec.describe HasStates::State, type: :model do
   describe 'instance methods' do
     let(:state) { create(:state, state_type: 'kyc', status: 'pending') }
     let(:model_config) { HasStates.configuration.model_configurations[User] }
-    let(:all_statuses) do
-      model_config.state_types.values.flat_map(&:statuses).uniq
-    end
+    let(:all_statuses) { model_config.state_types.values.flat_map(&:statuses).uniq }
 
-    it 'defines predicate methods for all configured statuses' do
-      all_statuses.each do |status|
-        expect(state).to respond_to("#{status}?")
+    context 'predicate methods' do
+      it 'defines predicate methods for all configured statuses' do
+        all_statuses.each do |status|
+          expect(state).to respond_to("#{status}?")
+        end
       end
-    end
 
-    it 'returns true if the status is pending' do
-      expect(state.pending?).to be(true)
-    end
+      it 'returns true if the status is pending' do
+        expect(state.pending?).to be(true)
+      end
 
-    it 'returns false if the status is not completed' do
-      expect(state.completed?).to be(false)
+      it 'returns false if the status is not completed' do
+        expect(state.completed?).to be(false)
+      end
     end
   end
 

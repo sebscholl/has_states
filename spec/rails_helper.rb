@@ -14,5 +14,6 @@ require_relative 'support/database_cleaner'
 RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+  config.include(ActiveSupport::Testing::TimeHelpers)
   # ... rest of your RSpec configuration
 end
