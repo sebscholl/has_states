@@ -17,7 +17,7 @@
 
 - Adding current_state method
 - Adding DB indexes for state lookups
-- Adding query methods for state types on stateable
+- Adding query methods for state types on stateable (`stateable.state_type` and `stateable.state_types`)
 
 ## [0.0.2] - 2024-12-23
 
