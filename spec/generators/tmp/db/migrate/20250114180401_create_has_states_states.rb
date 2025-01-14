@@ -1,4 +1,4 @@
- class CreateHasStatesStates < ActiveRecord::Migration[8.0]
+class CreateHasStatesStates < ActiveRecord::Migration[8.0]
   def change
     create_table :has_states_states do |t|
       t.string :type, null: false

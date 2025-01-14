@@ -42,7 +42,7 @@ module HasStates
 
       def generate_state_type_queries(state_type)
         # Singular for finding the most recent state of a given type and status
-        @model_class.define_method(state_type.to_sym) do
+        @model_class.define_method(:"#{state_type}") do
           states.where(state_type: state_type).order(created_at: :desc).first
         end
 

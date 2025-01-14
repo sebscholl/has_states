@@ -1,0 +1,11 @@
+class CreateIndexesOnHasStatesStates < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def change
+    change_table :has_states_states do |t|
+      t.index %i[stateable_id state_type]
+      t.index %i[stateable_id state_type status]
+      t.index %i[stateable_id state_type created_at]    
+      t.index %i[stateable_id state_type status created_at] 
+      t.index %i[stateable_type stateable_id]
+    end
+  end
+end

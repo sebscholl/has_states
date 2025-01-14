@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_23_212128) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_14_175939) do
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -27,6 +27,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_23_212128) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["stateable_id", "state_type", "created_at"], name: "idx_on_stateable_id_state_type_created_at_b5d09fb6ee"
+    t.index ["stateable_id", "state_type", "status", "created_at"], name: "idx_on_stateable_id_state_type_status_created_at_19e1cf37c2"
+    t.index ["stateable_id", "state_type", "status"], name: "idx_on_stateable_id_state_type_status_6d3d026e4d"
+    t.index ["stateable_id", "state_type"], name: "index_has_states_states_on_stateable_id_and_state_type"
     t.index ["stateable_type", "stateable_id"], name: "index_has_states_states_on_stateable"
     t.index ["stateable_type", "stateable_id"], name: "index_has_states_states_on_stateable_type_and_stateable_id"
     t.index ["type", "stateable_id"], name: "index_has_states_states_on_type_and_stateable_id"

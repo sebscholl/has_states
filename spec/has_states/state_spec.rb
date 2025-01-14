@@ -22,6 +22,28 @@ RSpec.describe HasStates::State, type: :model do
     end
   end
 
+  describe 'indexes' do
+    it 'defines an index on stateable_type and stateable_id' do
+      expect(subject).to have_db_index(%i[stateable_type stateable_id])
+    end
+
+    it 'defines an index on stateable_id and state_type' do
+      expect(subject).to have_db_index(%i[stateable_id state_type])
+    end
+
+    it 'defines an index on stateable_id, state_type, and status' do
+      expect(subject).to have_db_index(%i[stateable_id state_type status])
+    end
+
+    it 'defines an index on stateable_id, state_type, and created_at' do
+      expect(subject).to have_db_index(%i[stateable_id state_type created_at])
+    end
+
+    it 'defines an index on stateable_id, state_type, status, and created_at' do
+      expect(subject).to have_db_index(%i[stateable_id state_type status created_at])
+    end
+  end
+
   describe 'validations' do
     context 'status' do
       it 'validates status presence' do
