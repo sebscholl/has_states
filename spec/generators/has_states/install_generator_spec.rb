@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'generators/has_states/install/install_generator'
 
 RSpec.describe HasStates::InstallGenerator do
-  let(:destination) { File.expand_path('../tmp', __dir__) }
+  let(:destination) { File.expand_path('../templates', __dir__) }
 
   before do
     FileUtils.rm_rf(destination)
