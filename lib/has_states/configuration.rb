@@ -26,13 +26,19 @@ module HasStates
     end
 
     def valid_status?(model_class, state_type, status)
-      return false unless @model_configurations[model_class]&.state_types&.[](state_type.to_s)
+      return false unless @model_configurations[model_class]&.state_types&.dig(state_type.to_s)
 
       @model_configurations[model_class].state_types[state_type.to_s].statuses.include?(status)
     end
 
     def valid_state_type?(model_class, state_type)
       @model_configurations[model_class]&.state_types&.key?(state_type.to_s)
+    end
+
+    def limit_for(model_class, state_type)
+      return nil unless @model_configurations[model_class]&.state_types&.dig(state_type.to_s)
+
+      @model_configurations[model_class].state_types[state_type.to_s].limit
     end
 
     def on(state_type, id: nil, **conditions, &block)

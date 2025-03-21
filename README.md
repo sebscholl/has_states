@@ -130,6 +130,23 @@ state.metadata['documents']['passport']['status'] # => "verified"
 state.metadata['risk_score'] # => 85
 ```
 
+## State Limits
+
+You can optionally limit the number of states a record can have for a specific state type:
+
+```ruby
+HasStates.configure do |config|
+  config.configure_model User do |model|
+    model.state_type :kyc do |type|
+      type.statuses = %w[pending completed]
+      type.limit = 1  # Limit to only one KYC state per user
+    end
+  end
+end
+```
+
+When set, the limit is checked when a new state is added. If the limit is exceeded, an ActiveRecord::RecordInvalid error is raised.
+
 ### Callbacks
 
 Register callbacks that execute when states change:

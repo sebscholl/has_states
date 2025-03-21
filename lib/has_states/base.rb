@@ -8,6 +8,7 @@ module HasStates
 
     validate :status_is_configured
     validate :state_type_is_configured
+    validate :state_limit_not_exceeded, on: :create
 
     after_save :trigger_callbacks, if: :saved_change_to_status?
 
@@ -32,10 +33,24 @@ module HasStates
       errors.add(:state_type, 'is not configured')
     end
 
+    def state_limit_not_exceeded
+      limit = HasStates.configuration.limit_for(
+        stateable_type.constantize,
+        state_type
+      )
+
+      return unless limit && stateable
+
+      current_count = stateable.states.where(state_type: state_type).count
+      return if current_count < limit
+
+      errors.add(:base, "maximum number of #{state_type} states (#{limit}) reached")
+    end
+
     def trigger_callbacks
       HasStates.configuration.matching_callbacks(self).each do |callback|
         callback.call(self)
       end
     end
   end
-end 
+end

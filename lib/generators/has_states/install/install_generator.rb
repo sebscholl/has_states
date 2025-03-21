@@ -9,33 +9,33 @@ module HasStates
     TEMPLATES = [
       {
         source: 'create_has_states_states.rb.erb',
-        destination: "db/migrate/%s_create_has_states_states.rb"
+        destination: 'db/migrate/%s_create_has_states_states.rb'
       },
       {
         source: 'create_indexes_on_has_states_states.rb.erb',
-        destination: "db/migrate/%s_create_indexes_on_has_states_states.rb"
+        destination: 'db/migrate/%s_create_indexes_on_has_states_states.rb'
       },
       {
         source: 'initializer.rb.erb',
-        destination: "config/initializers/has_states.rb"
+        destination: 'config/initializers/has_states.rb'
       }
     ].freeze
 
     def install
       puts 'Installing HasStates...'
 
-      TEMPLATES.each do |template| 
+      TEMPLATES.each do |template|
         make_template(**template)
       end
 
       puts 'HasStates installed successfully!'
     end
 
-    private 
+    private
 
     def make_template(source:, destination:)
       timestamp = Time.now.utc.strftime('%Y%m%d%H%M%S')
-      destination = destination % timestamp if destination.include?('%s')
+      destination %= timestamp if destination.include?('%s')
 
       template(source, destination)
     end

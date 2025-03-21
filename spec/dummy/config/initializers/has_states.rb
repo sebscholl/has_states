@@ -1,4 +1,4 @@
- # frozen_string_literal: true
+# frozen_string_literal: true
 
 # Configure after the application is initialized
 Rails.application.config.after_initialize do
@@ -18,7 +18,7 @@ Rails.application.config.after_initialize do
           'rejected'             # KYC process failed
         ]
       end
-    
+
       # Onboarding state type with different statuses
       model.state_type :onboarding do |type|
         type.statuses = [

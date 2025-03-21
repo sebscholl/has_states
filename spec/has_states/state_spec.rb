@@ -289,11 +289,12 @@ RSpec.describe HasStates::State, type: :model do
     class KYCState < HasStates::Base
       validates :metadata, presence: true
       validate :required_metadata_fields
-      
+
       private
-      
+
       def required_metadata_fields
         return if metadata&.key?('document_type')
+
         errors.add(:metadata, 'must include document_type')
       end
     end
@@ -328,7 +329,7 @@ RSpec.describe HasStates::State, type: :model do
 
     it 'defaults to HasStates::State when no state_class specified' do
       state = user.add_state('kyc', status: 'pending')
-      
+
       expect(state).to be_a(HasStates::State)
       expect(state).to be_valid
     end

@@ -1,12 +1,13 @@
 ## Released
 
-## [0.0.2] - 2024-12-23
+## [0.0.4] - 2025-03-21
 
 ### Added
 - Single Table Inheritance (STI) support for custom state types
 - Ability to create custom state classes by inheriting from `HasStates::Base`
 - Default state class `HasStates::State` for basic state management
 - Example implementation of custom state types in documentation
+- `limit` option for state types to limit the number of states on a record
 
 ### Changed
 - Refactored base state functionality into `HasStates::Base`

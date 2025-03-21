@@ -74,6 +74,27 @@ RSpec.describe HasStates::Configuration do
         end
       end.to raise_error(ArgumentError, /must be an ActiveRecord model/)
     end
+
+    it 'allows setting a limit on the number of states' do
+      configuration.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = %w[pending completed]
+          type.limit = 2
+        end
+      end
+
+      expect(configuration.limit_for(User, 'kyc')).to eq(2)
+    end
+
+    it 'returns nil for limit when no limit is set' do
+      configuration.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = %w[pending completed]
+        end
+      end
+
+      expect(configuration.limit_for(User, 'kyc')).to be_nil
+    end
   end
 
   describe 'callbacks' do

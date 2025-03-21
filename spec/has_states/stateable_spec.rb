@@ -9,7 +9,7 @@ RSpec.describe HasStates::Stateable do
     end
   end
 
-  let(:user) { create(:user) }  # Assuming you have a User factory
+  let(:user) { create(:user) } # Assuming you have a User factory
 
   before do
     # HasStates.configuration.clear_callbacks!
@@ -54,7 +54,7 @@ RSpec.describe HasStates::Stateable do
 
     context 'with custom parameters' do
       let(:metadata) { { key: 'value' } }
-      
+
       it 'creates a new state with provided values' do
         state = user.add_state('test_type', status: 'completed', metadata: metadata)
 
@@ -98,7 +98,7 @@ RSpec.describe HasStates::Stateable do
 
   describe '#current_state' do
     let!(:latest_state) { user.add_state('test_type', status: 'completed') }
-    
+
     before do
       travel_to 1.day.ago do
         3.times { user.add_state('test_type', status: 'pending') }
@@ -109,7 +109,6 @@ RSpec.describe HasStates::Stateable do
     it 'returns the most recent state for the given type' do
       expect(user.current_state('test_type')).to eq latest_state
     end
-
 
     it 'returns nil when no state exists for the given type' do
       expect(user.current_state('nonexistent')).to be_nil
@@ -124,7 +123,7 @@ RSpec.describe HasStates::Stateable do
 
     it 'returns all states for the given type ordered by creation time' do
       test_types = user.current_states('test_type')
-      
+
       expect(test_types.size).to eq 3
       expect(test_types).to eq test_types.sort_by(&:created_at).reverse
     end
@@ -144,8 +143,8 @@ RSpec.describe HasStates::Stateable do
 
     context 'find one methods' do
       it 'defines query one methods for configured states' do
-        expect(user).to respond_to("test_type")
-        expect(user).to respond_to("other_test_type")
+        expect(user).to respond_to('test_type')
+        expect(user).to respond_to('other_test_type')
       end
 
       it 'returns the most recent state for the given status' do
@@ -156,8 +155,8 @@ RSpec.describe HasStates::Stateable do
 
     context 'find many methods' do
       it 'defines query all methods for configured states' do
-        expect(user).to respond_to("test_types")
-        expect(user).to respond_to("other_test_types")
+        expect(user).to respond_to('test_types')
+        expect(user).to respond_to('other_test_types')
       end
 
       it 'returns all states for the given status ordered by creation time' do

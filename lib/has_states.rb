@@ -11,7 +11,7 @@ module HasStates
     def configure
       yield(configuration)
     end
-    
+
     def configuration
       Configuration.instance
     end
