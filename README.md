@@ -188,6 +188,16 @@ HasStates::State.kyc              # All KYC states
 HasStates::State.onboarding      # All onboarding states
 ```
 
+### Class Inheritance
+
+HasStates lets you inherit from the `HasStates::Base` class to create custom state classes. This makes validations and custom methods on specific state types easy.
+
+```ruby
+class MyState < HasStates::Base
+  # Add validations or methods
+end
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/has_states.
