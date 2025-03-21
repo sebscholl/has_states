@@ -5,8 +5,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem 'ammeter'
-  gem 'appraisal'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'rake'
