@@ -85,8 +85,10 @@ state = user.add_state('kyc', status: 'pending', metadata: {
   notes: 'Awaiting document submission'
 })
 
-# Check current state
+# Load state(s) also by name as methods on the record
 current_kyc = user.current_state('kyc')
+current_kyc = user.kyc # Returns most recent state of type kyc if multiple states of the same type exist
+all_kyc = user.kycs
 
 # Predicate methods are generated for every status.
 current_kyc.pending?  # => true
@@ -236,6 +238,10 @@ HasStates lets you inherit from the `HasStates::Base` class to create custom sta
 ```ruby
 class MyState < HasStates::Base
   # Add validations or methods
+
+  def do_something
+    # Custom method on state
+  end
 end
 ```
 
