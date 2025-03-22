@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{lib,spec}/**/*', 'README.md', 'LICENSE.txt', 'CHANGELOG.md']
   spec.require_paths = ['lib']
+
+  spec.add_dependency 'json-schema'
 end

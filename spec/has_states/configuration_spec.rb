@@ -95,6 +95,42 @@ RSpec.describe HasStates::Configuration do
 
       expect(configuration.limit_for(User, 'kyc')).to be_nil
     end
+
+    context 'when a metadata schema is set' do
+      let(:schema) do
+        {
+          type: :object,
+          properties: {
+            name: { type: :string },
+            age: { type: :integer, minimum: 18 }
+          },
+          required: %i[name age]
+        }
+      end
+
+      before do
+        configuration.configure_model User do |model|
+          model.state_type :kyc do |type|
+            type.statuses = %w[pending completed]
+            type.metadata_schema = schema
+          end
+        end
+      end
+
+      it 'allows setting a metadata schema for validation' do
+        expect(configuration.metadata_schema_for(User, 'kyc')).to eq(schema)
+      end
+    end
+
+    it 'returns nil for metadata_schema when no schema is set' do
+      configuration.configure_model User do |model|
+        model.state_type :kyc do |type|
+          type.statuses = %w[pending completed]
+        end
+      end
+
+      expect(configuration.metadata_schema_for(User, 'kyc')).to be_nil
+    end
   end
 
   describe 'callbacks' do

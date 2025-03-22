@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     stateful_models (0.0.3)
+      json-schema
 
 GEM
   remote: https://rubygems.org/
@@ -41,6 +42,8 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.3)
     base64 (0.2.0)
     benchmark (0.4.0)
@@ -72,6 +75,9 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     json (2.10.2)
+    json-schema (5.1.1)
+      addressable (~> 2.8)
+      bigdecimal (~> 3.1)
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
     logger (1.6.6)
@@ -105,6 +111,7 @@ GEM
     psych (5.2.3)
       date
       stringio
+    public_suffix (6.0.1)
     racc (1.8.1)
     rack (3.1.12)
     rack-session (2.1.0)

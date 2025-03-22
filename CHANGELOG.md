@@ -8,6 +8,7 @@
 - Default state class `HasStates::State` for basic state management
 - Example implementation of custom state types in documentation
 - `limit` option for state types to limit the number of states on a record
+- `metadata_schema` option for state types to validate metadata
 
 ### Changed
 - Refactored base state functionality into `HasStates::Base`

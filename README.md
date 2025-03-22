@@ -130,6 +130,47 @@ state.metadata['documents']['passport']['status'] # => "verified"
 state.metadata['risk_score'] # => 85
 ```
 
+## Metadata Validations
+
+You can define a JSON Schema for validating the metadata of states. This allows you to ensure that the metadata follows a specific structure and contains required fields, leveraging the power of JSON Schema.
+
+```ruby
+HasStates.configure do |config|
+  config.configure_model User do |model|
+    model.state_type :kyc do |type|
+      type.statuses = [
+        'pending',         
+        'approved',    
+        'rejected'  
+      ]
+
+      type.metadata_schema = {
+        type: :object,
+        properties: {
+          name: { type: :string },
+          age: { 
+            type: :integer,
+            minimum: 18
+          },
+        },
+        required: [:name, :age],
+        additionalProperties: false,
+      }
+    end
+  end
+end
+
+user = User.create!
+
+# Invalid metadata (too young < 18)
+user.add_state('kyc', status: 'pending', metadata: { name: 'John Doe', age: 17 })
+# ActiveRecord::RecordInvalid: Validation failed: Metadata is invalid (minimum value of 18)
+
+# Valid metadata
+user.add_state('kyc', status: 'pending', metadata: { name: 'John Doe', age: 25 })
+# => #<HasStates::State...>
+```
+
 ## State Limits
 
 You can optionally limit the number of states a record can have for a specific state type:
