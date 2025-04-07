@@ -13,7 +13,7 @@ module HasStates
     validate :state_limit_not_exceeded, on: :create
     validate :metadata_conforms_to_schema, if: -> { metadata.present? }
 
-    after_save :trigger_callbacks, if: :saved_change_to_status?
+    after_commit :trigger_callbacks, if: :saved_change_to_status?
 
     private
 
