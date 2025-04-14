@@ -1,5 +1,10 @@
 ## Released
 
+## [0.0.5] - 2025-04-14
+
+## Change
+- Changed callback action on base class from `after_save` to `after_commit` 
+
 ## [0.0.4] - 2025-03-21
 
 ### Added
