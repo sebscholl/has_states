@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateHasStatesStates < ActiveRecord::Migration[8.0]
+class CreateMetaStatesStates < ActiveRecord::Migration[8.0]
   def change
-    create_table :has_states_states do |t|
+    create_table :meta_states_states do |t|
       t.string :state_type
       t.string :status, null: false
 

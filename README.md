@@ -1,6 +1,6 @@
-# HasStates
+# MetaStates
 
-HasStates is a flexible state management gem for Ruby on Rails that allows you to add multiple state machines to your models. It provides a simple way to track state transitions, add metadata, and execute callbacks.
+MetaStates is a flexible state management gem for Ruby on Rails that allows you to add multiple state machines to your models. It provides a simple way to track state transitions, add metadata, and execute callbacks.
 
 ## Features
 
@@ -27,7 +27,7 @@ $ bundle install
 
 Generate the required migration and initializer:
 ```bash
-$ rails generate has_states:install
+$ rails generate meta_states:install
 ```
 
 Finally, run the migration:
@@ -37,10 +37,10 @@ $ rails db:migrate
 
 ## Configuration
 
-Configure your models and their state types in `config/initializers/has_states.rb`:
+Configure your models and their state types in `config/initializers/meta_states.rb`:
 
 ```ruby
-HasStates.configure do |config|
+MetaStates.configure do |config|
   # Configure states on any model
   config.configure_model User do |model|
     # Define state type and its allowed statuses
@@ -102,7 +102,7 @@ user.kyc_pending? # => true
 user.kyc_completed? # => false
 
 # See all states for record
-user.states # => [#<HasStates::State...>]
+user.states # => [#<MetaStates::State...>]
 ```
 
 ### Working with Metadata
@@ -137,7 +137,7 @@ state.metadata['risk_score'] # => 85
 You can define a JSON Schema for validating the metadata of states. This allows you to ensure that the metadata follows a specific structure and contains required fields, leveraging the power of JSON Schema.
 
 ```ruby
-HasStates.configure do |config|
+MetaStates.configure do |config|
   config.configure_model User do |model|
     model.state_type :kyc do |type|
       type.statuses = [
@@ -170,7 +170,7 @@ user.add_state('kyc', status: 'pending', metadata: { name: 'John Doe', age: 17 }
 
 # Valid metadata
 user.add_state('kyc', status: 'pending', metadata: { name: 'John Doe', age: 25 })
-# => #<HasStates::State...>
+# => #<MetaStates::State...>
 ```
 
 ## State Limits
@@ -178,7 +178,7 @@ user.add_state('kyc', status: 'pending', metadata: { name: 'John Doe', age: 25 }
 You can optionally limit the number of states a record can have for a specific state type:
 
 ```ruby
-HasStates.configure do |config|
+MetaStates.configure do |config|
   config.configure_model User do |model|
     model.state_type :kyc do |type|
       type.statuses = %w[pending completed]
@@ -195,7 +195,7 @@ When set, the limit is checked when a new state is added. If the limit is exceed
 Register callbacks that execute when states change:
 
 ```ruby
-HasStates.configure do |config|
+MetaStates.configure do |config|
   # Basic callback
   config.on(:kyc, to: 'completed') do |state|
     UserMailer.kyc_completed(state.stateable).deliver_later
@@ -218,25 +218,25 @@ HasStates.configure do |config|
 end
 
 # Remove callbacks
-HasStates.configuration.off(:notify_admin)  # Remove by ID
-HasStates.configuration.off(callback)       # Remove by callback object
+MetaStates.configuration.off(:notify_admin)  # Remove by ID
+MetaStates.configuration.off(callback)       # Remove by callback object
 ```
 
 ### Scopes
 
-HasStates automatically generates scopes for your state types:
+MetaStates automatically generates scopes for your state types:
 
 ```ruby
-HasStates::State.kyc              # All KYC states
-HasStates::State.onboarding      # All onboarding states
+MetaStates::State.kyc              # All KYC states
+MetaStates::State.onboarding      # All onboarding states
 ```
 
 ### Class Inheritance
 
-HasStates lets you inherit from the `HasStates::Base` class to create custom state classes. This makes validations and custom methods on specific state types easy.
+MetaStates lets you inherit from the `MetaStates::Base` class to create custom state classes. This makes validations and custom methods on specific state types easy.
 
 ```ruby
-class MyState < HasStates::Base
+class MyState < MetaStates::Base
   # Add validations or methods
 
   def do_something
@@ -245,9 +245,27 @@ class MyState < HasStates::Base
 end
 ```
 
+## Migrating from 0.0.X -> 0.1.X
+
+The gem has been renamed from `stateful_models` to `meta_states`. This change doesn't impact any gem functionality, but requires a migration and updating the namespace for projects that choose to upgrade.
+
+```rb
+# Rename has states table
+# 
+# https://api.rubyonrails.org/v8.0.2/classes/ActiveRecord/ConnectionAdapters/SchemaStatements.html#method-i-rename_table
+class ReanmeHasStatesStatesToMetaStatesStates < ActiveRecord::Migration[8.0]
+  def change
+    rename_table :has_states_states :meta_states_states
+  end
+end
+```
+
+After renaming the table, proceed to changing any use of the `HasStates` namespace to `MetaStates` and any `has_states` (i.e. filepaths, filenames) to `meta_states`. 
+
+
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/has_states.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/meta_states.
 
 ## License
 

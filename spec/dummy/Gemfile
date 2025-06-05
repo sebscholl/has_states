@@ -36,5 +36,5 @@ group :development, :test do
   gem 'brakeman', require: false
 end
 
-# HasStates gem for state management and event system capabilities
-gem 'stateful_models', path: '../..' # This points to the root of your gem
+# MetaStates gem for state management and event system capabilities
+gem 'meta_states', path: '../..' # This points to the root of your gem

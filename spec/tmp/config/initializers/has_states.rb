@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-HasStates.configure do |config|
+MetaStates.configure do |config|
   # Configure your models here
   # Example:
   #

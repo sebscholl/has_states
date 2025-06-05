@@ -350,3 +350,67 @@ Migrating to CreateIndexesOnHasStatesStates (20250114175939)
   [1m[36mHasStates::Base Load (0.6ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' AND "has_states_states"."state_type" = 'kyc' /* loading for pp */ ORDER BY "has_states_states"."created_at" DESC LIMIT 11 /*application='Dummy'*/[0m
   [1m[36mHasStates::Base Load (0.4ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' AND "has_states_states"."state_type" = 'kyc' ORDER BY "has_states_states"."created_at" DESC LIMIT 1 /*application='Dummy'*/[0m
   [1m[36mHasStates::Base Load (0.3ms)[0m  [1m[34mSELECT "has_states_states".* FROM "has_states_states" WHERE "has_states_states"."stateable_id" = 1 AND "has_states_states"."stateable_type" = 'User' AND "has_states_states"."state_type" = 'onboarding' ORDER BY "has_states_states"."created_at" DESC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[35m (20.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "companies" /*application='Dummy'*/[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE TABLE "companies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "meta_states_states" /*application='Dummy'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "meta_states_states" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "type" varchar NOT NULL, "state_type" varchar, "status" varchar NOT NULL, "metadata" json DEFAULT '{}' NOT NULL, "stateable_type" varchar NOT NULL, "stateable_id" integer NOT NULL, "completed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Dummy'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "idx_on_stateable_id_state_type_created_at_b5d09fb6ee" ON "meta_states_states" ("stateable_id", "state_type", "created_at") /*application='Dummy'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "idx_on_stateable_id_state_type_status_created_at_19e1cf37c2" ON "meta_states_states" ("stateable_id", "state_type", "status", "created_at") /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "idx_on_stateable_id_state_type_status_6d3d026e4d" ON "meta_states_states" ("stateable_id", "state_type", "status") /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_meta_states_states_on_stateable_id_and_state_type" ON "meta_states_states" ("stateable_id", "state_type") /*application='Dummy'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_meta_states_states_on_stateable" ON "meta_states_states" ("stateable_type", "stateable_id") /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_meta_states_states_on_stateable_type_and_stateable_id" ON "meta_states_states" ("stateable_type", "stateable_id") /*application='Dummy'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_meta_states_states_on_type_and_stateable_id" ON "meta_states_states" ("type", "stateable_id") /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250114175939) /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20241223212128),
+(20241221171423); /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-06-05 17:04:30.541771', '2025-06-05 17:04:30.541776') RETURNING "key" /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'e67723675b54c1aa21e8b238e9f0fda420edc0af', '2025-06-05 17:04:30.545855', '2025-06-05 17:04:30.545859') RETURNING "key" /*application='Dummy'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "companies" /*application='Dummy'*/[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE TABLE "companies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "meta_states_states" /*application='Dummy'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "meta_states_states" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "type" varchar NOT NULL, "state_type" varchar, "status" varchar NOT NULL, "metadata" json DEFAULT '{}' NOT NULL, "stateable_type" varchar NOT NULL, "stateable_id" integer NOT NULL, "completed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "idx_on_stateable_id_state_type_created_at_b5d09fb6ee" ON "meta_states_states" ("stateable_id", "state_type", "created_at") /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "idx_on_stateable_id_state_type_status_created_at_19e1cf37c2" ON "meta_states_states" ("stateable_id", "state_type", "status", "created_at") /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "idx_on_stateable_id_state_type_status_6d3d026e4d" ON "meta_states_states" ("stateable_id", "state_type", "status") /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_meta_states_states_on_stateable_id_and_state_type" ON "meta_states_states" ("stateable_id", "state_type") /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_meta_states_states_on_stateable" ON "meta_states_states" ("stateable_type", "stateable_id") /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_meta_states_states_on_stateable_type_and_stateable_id" ON "meta_states_states" ("stateable_type", "stateable_id") /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_meta_states_states_on_type_and_stateable_id" ON "meta_states_states" ("type", "stateable_id") /*application='Dummy'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250114175939) /*application='Dummy'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20241223212128),
+(20241221171423); /*application='Dummy'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-06-05 17:04:30.595641', '2025-06-05 17:04:30.595644') RETURNING "key" /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.1ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2025-06-05 17:04:30.598378' WHERE "ar_internal_metadata"."key" = 'environment' /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'e67723675b54c1aa21e8b238e9f0fda420edc0af', '2025-06-05 17:04:30.600734', '2025-06-05 17:04:30.600736') RETURNING "key" /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m

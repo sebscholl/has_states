@@ -14,7 +14,7 @@ require 'action_controller/railtie'
 Bundler.require(*Rails.groups)
 
 Bundler.require(*Rails.groups)
-require 'has_states'
+require 'meta_states'
 
 module Dummy
   class Application < Rails::Application

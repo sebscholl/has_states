@@ -1,5 +1,10 @@
 ## Released
 
+## [0.1.0] - 2025-06-05
+
+### Change
+- Renaming gem from `meta_states` to `meta_states`.
+
 ## [0.0.5] - 2025-04-14
 
 ## Change
@@ -9,14 +14,14 @@
 
 ### Added
 - Single Table Inheritance (STI) support for custom state types
-- Ability to create custom state classes by inheriting from `HasStates::Base`
-- Default state class `HasStates::State` for basic state management
+- Ability to create custom state classes by inheriting from `MetaStates::Base`
+- Default state class `MetaStates::State` for basic state management
 - Example implementation of custom state types in documentation
 - `limit` option for state types to limit the number of states on a record
 - `metadata_schema` option for state types to validate metadata
 
 ### Changed
-- Refactored base state functionality into `HasStates::Base`
+- Refactored base state functionality into `MetaStates::Base`
 - Updated `add_state` method to support custom state classes
 - Improved test coverage for inheritance and custom state types
 
@@ -31,8 +36,8 @@
 - Added test coverage
 - Refactor of State model into a inheritable Base class
 - Single Table Inheritance (STI) support for custom state types
-- Ability to create custom state classes by inheriting from `HasStates::Base`
-- Default state class `HasStates::State` for basic state management
+- Ability to create custom state classes by inheriting from `MetaStates::Base`
+- Default state class `MetaStates::State` for basic state management
 - Example implementation of custom state types in documentation
 
 ## [0.0.1] - 2024-12-21
